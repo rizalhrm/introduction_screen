@@ -115,7 +115,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       skipFlex: 0,
       nextFlex: 0,
       skip: const Text('Skip'),
-      next: const Icon(Icons.arrow_forward),
+      previous: const Text('Previous'),
+      next: const Text('Next'),
       done: const Text('Done', style: TextStyle(fontWeight: FontWeight.w600)),
       dotsDecorator: const DotsDecorator(
         size: Size(10.0, 10.0),

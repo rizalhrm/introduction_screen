@@ -31,6 +31,9 @@ class IntroductionScreen extends StatefulWidget {
   /// Next button
   final Widget next;
 
+  // Previous button
+  final Widget previous;
+
   /// Is the Skip button should be display
   ///
   /// @Default `false`
@@ -101,6 +104,7 @@ class IntroductionScreen extends StatefulWidget {
     this.onChange,
     this.skip,
     this.next,
+    this.previous,
     this.showSkipButton = false,
     this.showNextButton = true,
     this.isProgress = true,
@@ -150,6 +154,10 @@ class IntroductionScreenState extends State<IntroductionScreen> {
     animateScroll(min(_currentPage.round() + 1, widget.pages.length - 1));
   }
 
+  void previous() {
+    animateScroll(min(_currentPage.round() - 1, widget.pages.length - 1));
+  }
+
   Future<void> _onSkip() async {
     if (widget.onSkip != null) return widget.onSkip();
     await skipToEnd();
@@ -186,11 +194,17 @@ class IntroductionScreenState extends State<IntroductionScreen> {
   @override
   Widget build(BuildContext context) {
     final isLastPage = (_currentPage.round() == widget.pages.length - 1);
+    final isFirstPage = (_currentPage.round() == 0);
     bool isSkipBtn = (!_isSkipPressed && !isLastPage && widget.showSkipButton);
 
     final skipBtn = IntroButton(
       child: widget.skip,
       onPressed: isSkipBtn ? _onSkip : null,
+    );
+
+    final previousBtn = IntroButton(
+      child: widget.previous,
+      onPressed: !_isScrolling ? previous : null,
     );
 
     final nextBtn = IntroButton(
@@ -225,11 +239,17 @@ class IntroductionScreenState extends State<IntroductionScreen> {
             child: SafeArea(
               child: Row(
                 children: [
+                  // Expanded(
+                  //   flex: widget.skipFlex,
+                  //   child: isSkipBtn
+                  //       ? skipBtn
+                  //       : Opacity(opacity: 0.0, child: skipBtn),
+                  // ),
                   Expanded(
-                    flex: widget.skipFlex,
-                    child: isSkipBtn
-                        ? skipBtn
-                        : Opacity(opacity: 0.0, child: skipBtn),
+                    flex: widget.nextFlex,
+                    child: !isFirstPage
+                        ? previousBtn
+                        : Opacity(opacity: 0.0, child: previousBtn),
                   ),
                   Expanded(
                     flex: widget.dotsFlex,
@@ -257,6 +277,22 @@ class IntroductionScreenState extends State<IntroductionScreen> {
                 ],
               ),
             ),
+          ),
+          Positioned(
+            top: 6.0,
+            right: 0.0,
+            child: SafeArea(
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: widget.skipFlex,
+                    child: isSkipBtn
+                        ? skipBtn
+                        : Opacity(opacity: 0.0, child: skipBtn),
+                  ),
+                ],
+              )
+            )
           ),
         ],
       ),
