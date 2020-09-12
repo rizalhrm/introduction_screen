@@ -48,6 +48,8 @@ class PageDecoration {
   /// @Default `EdgeInsets.symmetric(vertical: 24.0)`
   final EdgeInsets footerPadding;
 
+  final EdgeInsets containerContentPadding;
+
   const PageDecoration({
     this.pageColor,
     this.titleTextStyle = const TextStyle(
@@ -66,6 +68,7 @@ class PageDecoration {
     this.titlePadding = const EdgeInsets.only(bottom: 24.0),
     this.descriptionPadding = EdgeInsets.zero,
     this.footerPadding = const EdgeInsets.symmetric(vertical: 24.0),
+    this.containerContentPadding = const EdgeInsets.only(bottom: 0.0),
   }) : assert(pageColor == null || boxDecoration == null,
             'Cannot provide both a Color and a BoxDecoration\n');
 }

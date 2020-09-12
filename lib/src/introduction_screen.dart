@@ -239,12 +239,6 @@ class IntroductionScreenState extends State<IntroductionScreen> {
             child: SafeArea(
               child: Row(
                 children: [
-                  // Expanded(
-                  //   flex: widget.skipFlex,
-                  //   child: isSkipBtn
-                  //       ? skipBtn
-                  //       : Opacity(opacity: 0.0, child: skipBtn),
-                  // ),
                   Expanded(
                     flex: widget.nextFlex,
                     child: !isFirstPage
